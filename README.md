@@ -78,6 +78,14 @@ docker-compose up
 
 After running the above command, the server will automatically initialize and will be available at localhost:8083. If the browser does not automatically open, you will need to copy and paste this link into your browser.
 
+## How to test the project
+
+1. To test the project, in the root of the project, simply type the following command:
+
+```
+npx jest --env=jsdom
+```
+
 ## Conclusion
 
 In summary, each of these technologies played a vital role in the project, contributing to its success. The combination of these tools resulted in clean, efficient, and secure code. It was a valuable learning journey that will surely have a positive impact on future projects.
