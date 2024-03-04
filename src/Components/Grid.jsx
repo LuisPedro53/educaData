@@ -2,9 +2,49 @@ import React from "react";
 import axios from "axios";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { Th, Td, Tr, Tbody, Thead, Table } from "../Styles/Grid";
+import {
+  Th,
+  Td,
+  Tr,
+  Tbody,
+  Thead,
+  Table,
+  ActionIconWrapper,
+} from "../Styles/Grid";
 
-const Grid = ({ users }) => {
+const Grid = ({ users, setUsers }) => {
+  const handleDelete = async (cdAluno) => {
+    try {
+      const response = await axios.post("http://localhost:8080/graphql", {
+        query: `
+                mutation DeleteAluno($cdAluno: String!) {
+                    deleteAluno(cdAluno: $cdAluno)
+                }
+            `,
+        variables: {
+          cdAluno: cdAluno,
+        },
+      });
+      console.log(response); // Adicione esta linha
+
+      if (response.data.errors) {
+        toast.error("Erro ao excluir aluno!");
+        return;
+      }
+
+      if (response.data.data && response.data.data.deleteAluno) {
+        const newArray = users.filter((user) => user.cdAluno !== cdAluno);
+        setUsers(newArray);
+        toast.success("Aluno excluído com sucesso!");
+      } else {
+        toast.error("Falha ao excluir aluno!");
+      }
+    } catch (error) {
+      console.error("Erro ao excluir aluno:", error);
+      toast.error("Erro ao excluir aluno!");
+    }
+  };
+
   return (
     <Table>
       <Thead>
@@ -23,10 +63,14 @@ const Grid = ({ users }) => {
             <Td width="50%">{item.emailAluno}</Td>
             <Td width="50%">{item.cpfAluno}</Td>
             <Td alignCenter width="5%">
-              <FaEdit onClick={() => handleEdit(item)} />
+              <ActionIconWrapper>
+                <FaEdit onClick={() => handleEdit(item)} />
+              </ActionIconWrapper>
             </Td>
             <Td alignCenter width="5%">
-              <FaTrash onClick={() => handleDelete(item.id)} />
+              <ActionIconWrapper>
+                <FaTrash onClick={() => handleDelete(item.cdAluno)} />
+              </ActionIconWrapper>
             </Td>
           </Tr>
         ))}

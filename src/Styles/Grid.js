@@ -36,3 +36,7 @@ export const Td = styled.td`
     ${(props) => props.onlyWeb && "display: none"}
   }
 `;
+
+export const ActionIconWrapper = styled.div`
+  cursor: pointer;
+`;

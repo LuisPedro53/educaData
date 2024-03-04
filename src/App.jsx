@@ -30,6 +30,7 @@ function App() {
           query: `
             query GetAlunos($nmAluno: String, $cpfAluno: String, $emailAluno: String) {
               alunos(nmAluno: $nmAluno, cpfAluno: $cpfAluno, emailAluno: $emailAluno) {
+                cdAluno
                 nmAluno
                 emailAluno
                 cpfAluno
@@ -37,9 +38,9 @@ function App() {
             }
           `,
           variables: {
-            nmAluno: null, // Preencha com o valor desejado ou deixe como null se não desejar filtrar por este campo
-            cpfAluno: null, // Preencha com o valor desejado ou deixe como null se não desejar filtrar por este campo
-            emailAluno: null, // Preencha com o valor desejado ou deixe como null se não desejar filtrar por este campo
+            nmAluno: null,
+            cpfAluno: null,
+            emailAluno: null,
           },
         });
         setUsers(response.data.data.alunos);
@@ -56,9 +57,9 @@ function App() {
       <Container>
         <Title>Alunos</Title>
         <Form />
-        <Grid users={users} />
+        <Grid users={users} setUsers={setUsers} />
       </Container>
-
+      <ToastContainer />
       <GlobalStyle />
     </>
   );
