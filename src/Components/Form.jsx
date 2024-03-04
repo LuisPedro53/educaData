@@ -11,7 +11,7 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleSearch = () => {
-    fetchUsers(nome, cpf, email);
+    fetchUsers(nome.trim(), cpf.trim(), email.trim());
   };
 
   useEffect(() => {
@@ -42,6 +42,7 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
       });
 
       toast.success("Aluno criado com sucesso!");
+      fetchUsers();
     } catch (error) {
       console.error("Erro ao criar aluno:", error);
       toast.error("Erro ao criar aluno!");
@@ -65,6 +66,7 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
       });
 
       toast.success("Aluno atualizado com sucesso!");
+      fetchUsers();
     } catch (error) {
       console.error("Erro ao atualizar aluno:", error);
       toast.error("Erro ao atualizar aluno!");
@@ -75,9 +77,9 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
     event.preventDefault();
 
     const aluno = {
-      nmAluno: nome,
-      cpfAluno: cpf,
-      emailAluno: email,
+      nmAluno: nome.trim(),
+      cpfAluno: cpf.trim(),
+      emailAluno: email.trim(),
     };
 
     if (!nome || !email || !cpf) {
@@ -96,7 +98,6 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
     setCpf("");
     setCdAluno("");
     setIsEditing(false);
-    fetchUsers();
   };
 
   return (
