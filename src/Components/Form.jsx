@@ -10,6 +10,10 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
   const [cdAluno, setCdAluno] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
+  const handleSearch = () => {
+    fetchUsers(nome, cpf, email);
+  };
+
   useEffect(() => {
     if (editingUser) {
       setNome(editingUser.nmAluno);
@@ -126,7 +130,9 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
       </InputArea>
 
       <Button type="submit">SALVAR</Button>
-      <Button type="button">PESQUISAR</Button>
+      <Button type="button" onClick={handleSearch}>
+        PESQUISAR
+      </Button>
     </FormContainer>
   );
 };

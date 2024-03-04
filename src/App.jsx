@@ -25,8 +25,11 @@ function App() {
 
   const [editingUser, setEditingUser] = useState(null);
 
-  // Mova a definição de fetchUsers para fora do useEffect
-  const fetchUsers = async () => {
+  const fetchUsers = async (
+    nmAluno = null,
+    cpfAluno = null,
+    emailAluno = null
+  ) => {
     try {
       const response = await axios.post("http://localhost:8080/graphql", {
         query: `
@@ -40,9 +43,9 @@ function App() {
         }
       `,
         variables: {
-          nmAluno: null,
-          cpfAluno: null,
-          emailAluno: null,
+          nmAluno,
+          cpfAluno,
+          emailAluno,
         },
       });
       setUsers(response.data.data.alunos);
@@ -55,7 +58,6 @@ function App() {
     fetchUsers();
   }, []);
 
-  // Passe fetchUsers como uma prop para o componente Form
   <Form
     editingUser={editingUser}
     setEditingUser={setEditingUser}
