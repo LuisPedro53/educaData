@@ -25,40 +25,52 @@ function App() {
 
   const [editingUser, setEditingUser] = useState(null);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.post("http://localhost:8080/graphql", {
-          query: `
-            query GetAlunos($nmAluno: String, $cpfAluno: String, $emailAluno: String) {
-              alunos(nmAluno: $nmAluno, cpfAluno: $cpfAluno, emailAluno: $emailAluno) {
-                cdAluno
-                nmAluno
-                emailAluno
-                cpfAluno
-              }
-            }
-          `,
-          variables: {
-            nmAluno: null,
-            cpfAluno: null,
-            emailAluno: null,
-          },
-        });
-        setUsers(response.data.data.alunos);
-      } catch (error) {
-        toast.error("Erro ao carregar alunos");
-      }
-    };
+  // Mova a definição de fetchUsers para fora do useEffect
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.post("http://localhost:8080/graphql", {
+        query: `
+        query GetAlunos($nmAluno: String, $cpfAluno: String, $emailAluno: String) {
+          alunos(nmAluno: $nmAluno, cpfAluno: $cpfAluno, emailAluno: $emailAluno) {
+            cdAluno
+            nmAluno
+            emailAluno
+            cpfAluno
+          }
+        }
+      `,
+        variables: {
+          nmAluno: null,
+          cpfAluno: null,
+          emailAluno: null,
+        },
+      });
+      setUsers(response.data.data.alunos);
+    } catch (error) {
+      toast.error("Erro ao carregar alunos");
+    }
+  };
 
+  useEffect(() => {
     fetchUsers();
   }, []);
+
+  // Passe fetchUsers como uma prop para o componente Form
+  <Form
+    editingUser={editingUser}
+    setEditingUser={setEditingUser}
+    fetchUsers={fetchUsers}
+  />;
 
   return (
     <>
       <Container>
         <Title>Alunos</Title>
-        <Form editingUser={editingUser} setEditingUser={setEditingUser} />
+        <Form
+          editingUser={editingUser}
+          setEditingUser={setEditingUser}
+          fetchUsers={fetchUsers}
+        />
 
         <Grid
           users={users}
