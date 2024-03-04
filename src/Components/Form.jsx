@@ -90,6 +90,11 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
       return toast.warn("Preencha todos os campos");
     }
 
+    console.log(cpfNumeros.length);
+    if (cpfNumeros.length !== 11) {
+      return toast.warn("CPF inválido");
+    }
+
     if (isEditing) {
       aluno.cdAluno = editingUser.cdAluno;
       handleUpdate(aluno);
