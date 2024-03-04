@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { FormContainer, InputArea, Input, Label, Button } from "../Styles/Form";
 import { toast } from "react-toastify";
 import axios from "axios";
+import InputMask from "react-input-mask";
 
 const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
   const [nome, setNome] = useState("");
@@ -11,7 +12,8 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleSearch = () => {
-    fetchUsers(nome.trim(), cpf.trim(), email.trim());
+    const cpfNumeros = cpf.replace(/\D/g, "").trim(); // Remove todos os caracteres não numéricos
+    fetchUsers(nome.trim(), cpfNumeros, email.trim());
   };
 
   useEffect(() => {
@@ -76,9 +78,11 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const cpfNumeros = cpf.replace(/\D/g, "").trim();
+
     const aluno = {
       nmAluno: nome.trim(),
-      cpfAluno: cpf.trim(),
+      cpfAluno: cpfNumeros,
       emailAluno: email.trim(),
     };
 
@@ -123,11 +127,13 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
 
       <InputArea>
         <Label>CPF</Label>
-        <Input
-          name="cpfAluno"
+        <InputMask
+          mask="999.999.999-99"
           value={cpf}
           onChange={(e) => setCpf(e.target.value)}
-        />
+        >
+          {(inputProps) => <Input {...inputProps} />}
+        </InputMask>
       </InputArea>
 
       <Button type="submit">SALVAR</Button>

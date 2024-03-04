@@ -24,6 +24,14 @@ const Input = styled.input`
   height: 40px;
 `;
 
+export const InputMask = styled(Input)`
+  width: 160px;
+  padding: 0 10px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  height: 40px;
+`;
+
 const Label = styled.label``;
 
 const Button = styled.button`
