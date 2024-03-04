@@ -23,6 +23,8 @@ function App() {
   const [users, setUsers] = useState([]);
   const [ondEdit, setOndEdit] = useState(null);
 
+  const [editingUser, setEditingUser] = useState(null);
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -56,8 +58,13 @@ function App() {
     <>
       <Container>
         <Title>Alunos</Title>
-        <Form />
-        <Grid users={users} setUsers={setUsers} />
+        <Form editingUser={editingUser} setEditingUser={setEditingUser} />
+
+        <Grid
+          users={users}
+          setUsers={setUsers}
+          setEditingUser={setEditingUser}
+        />
       </Container>
       <ToastContainer />
       <GlobalStyle />

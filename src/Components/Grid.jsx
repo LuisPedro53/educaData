@@ -12,7 +12,7 @@ import {
   ActionIconWrapper,
 } from "../Styles/Grid";
 
-const Grid = ({ users, setUsers }) => {
+const Grid = ({ users, setUsers, setEditingUser }) => {
   const handleDelete = async (cdAluno) => {
     try {
       const response = await axios.post("http://localhost:8080/graphql", {
@@ -64,7 +64,7 @@ const Grid = ({ users, setUsers }) => {
             <Td width="50%">{item.cpfAluno}</Td>
             <Td alignCenter width="5%">
               <ActionIconWrapper>
-                <FaEdit onClick={() => handleEdit(item)} />
+                <FaEdit onClick={() => setEditingUser(item)} />
               </ActionIconWrapper>
             </Td>
             <Td alignCenter width="5%">
