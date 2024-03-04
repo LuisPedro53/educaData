@@ -12,7 +12,7 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleSearch = () => {
-    const cpfNumeros = cpf.replace(/\D/g, "").trim(); // Remove todos os caracteres não numéricos
+    const cpfNumeros = cpf.replace(/\D/g, "").trim();
     fetchUsers(nome.trim(), cpfNumeros, email.trim());
   };
 
@@ -107,8 +107,9 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
   return (
     <FormContainer onSubmit={handleSubmit}>
       <InputArea>
-        <Label>Nome</Label>
+        <Label htmlFor="nome-input">Nome</Label>
         <Input
+          id="nome-input"
           name="nmAluno"
           value={nome}
           onChange={(e) => setNome(e.target.value)}
@@ -116,8 +117,9 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
       </InputArea>
 
       <InputArea>
-        <Label>E-mail</Label>
+        <Label htmlFor="email-input">E-mail</Label>
         <Input
+          id="email-input"
           name="emailAluno"
           type="email"
           value={email}
@@ -126,11 +128,13 @@ const Form = ({ editingUser, setEditingUser, fetchUsers }) => {
       </InputArea>
 
       <InputArea>
-        <Label>CPF</Label>
+        <Label htmlFor="cpf-input">CPF</Label>
         <InputMask
           mask="999.999.999-99"
           value={cpf}
           onChange={(e) => setCpf(e.target.value)}
+          id="cpf-input"
+          data-testid="cpf-input"
         >
           {(inputProps) => <Input {...inputProps} />}
         </InputMask>

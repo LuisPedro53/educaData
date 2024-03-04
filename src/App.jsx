@@ -1,23 +1,11 @@
 import GlobalStyle from "./Styles/global.js";
-import styled from "styled-components";
 import Form from "./Components/Form.jsx";
 import Grid from "./Components/Grid.jsx";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
-const Container = styled.div`
-  width: 100%;
-  max-width: 800px;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-`;
-
-const Title = styled.h2``;
+import { Container, Title } from "./Styles/App.js";
 
 function App() {
   const [users, setUsers] = useState([]);

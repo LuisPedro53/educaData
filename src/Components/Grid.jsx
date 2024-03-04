@@ -25,7 +25,7 @@ const Grid = ({ users, setUsers, setEditingUser }) => {
           cdAluno: cdAluno,
         },
       });
-      console.log(response); // Adicione esta linha
+      console.log(response); 
 
       if (response.data.errors) {
         toast.error("Erro ao excluir aluno!");
@@ -62,14 +62,17 @@ const Grid = ({ users, setUsers, setEditingUser }) => {
             <Td width="50%">{item.nmAluno}</Td>
             <Td width="50%">{item.emailAluno}</Td>
             <Td width="50%">{item.cpfAluno}</Td>
-            <Td alignCenter width="5%">
+            <Td style={{ textAlign: "center" }} width="5%">
               <ActionIconWrapper>
                 <FaEdit onClick={() => setEditingUser(item)} />
               </ActionIconWrapper>
             </Td>
-            <Td alignCenter width="5%">
+            <Td style={{ textAlign: "center" }} width="5%">
               <ActionIconWrapper>
-                <FaTrash onClick={() => handleDelete(item.cdAluno)} />
+                <FaTrash
+                  data-testid="delete-icon"
+                  onClick={() => handleDelete(item.cdAluno)}
+                />
               </ActionIconWrapper>
             </Td>
           </Tr>
